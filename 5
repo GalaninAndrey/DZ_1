@@ -1,0 +1,40 @@
+using System;
+namespace Task5
+{
+    class MultiMass
+    {
+        static void Main()
+        {
+            int N           = 100000;
+            Random rand     = new Random();
+            int[] matrix1   = new int[N*N];
+            int[] matrix2   = new int[N * N];
+            int[] matrix    = new int[N * N];
+
+            for (int i = 0; i < N*N; i++)
+            {
+                matrix1[i] = rand.Next(0, 5);
+                matrix2[i] = rand.Next(0, 5);
+            }
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < N; j++)
+                {
+                    for (int k = 0; k < N; k++)
+                    {
+                        matrix[i*N + j] += matrix1[i*N + k] * matrix2[k * N + j];
+                    }
+                }
+            }
+
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < N; j++)
+                {
+                    Console.Write($"{matrix[i * N + j]} ");
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
