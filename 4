@@ -1,0 +1,49 @@
+using System;
+namespace Task4 
+{
+    class Kino
+    {
+        static void Main()
+        {
+            Console.WriteLine("Введите размерность матрицы:");
+            int N           = int.Parse(Console.ReadLine());
+            int M           = int.Parse(Console.ReadLine());
+            int[,] matrix   = new int[N, M];
+
+            string arrs;
+            for (int i = 0; i < N; i++)
+            {
+                arrs = Console.ReadLine();
+                var items = arrs.Split(new char[] { ' ' });
+                for (int j = 0; j < M; j++)
+                    matrix[i, j] = int.Parse(items[j]);
+            }
+
+            Console.WriteLine("Количество билетов");
+            int K = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < N; i++)
+            {
+                int R = 0;
+
+                for (int j = 0; j < M; j++)
+                {
+                    if (matrix[i, j] != 1)
+                        R++;
+                    else
+                    {
+                        R = 0;
+                    }
+
+                    if (R >= K)
+                    {
+                        Console.Write("Ряд:");
+                        Console.WriteLine(i + 1);
+                        break;
+                    }
+                }
+            }
+
+        }
+    }
+}
