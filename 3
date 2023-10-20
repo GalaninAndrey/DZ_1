@@ -1,0 +1,187 @@
+using System;
+using System.Data;
+using System.Linq.Expressions;
+using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
+
+namespace Task3
+{
+    class Project 
+    {
+        static int[] InitilizationRandom(int N)
+        {
+            int[] mass      = new int[N];
+            Random random   = new Random();
+
+            for (int i = 0; i < N; i++)
+            {
+                mass[i] = random.Next(0, 10);
+            }
+            return mass;
+        }
+        static void SumOfMass(int[] mass1,int[] mass2)
+        {
+            int[] SumMass = new int[mass1.Length];
+
+            for (int i = 0; i < SumMass.Length; i++)
+            {
+                SumMass[i] = mass1[i] + mass2[i];
+                Console.WriteLine(SumMass[i]);
+            }
+
+        }
+        static void MultArray(int[] mass, int mult)
+        {
+            for (int i = 0; i < mass.Length; i++)
+            {
+                mass[i] *= mult;
+                Console.WriteLine(mass[i]);
+            }
+
+        }
+        static void Find(int[] mass1, int[] mass2)
+        {
+            int[] find = mass1.Intersect(mass2).ToArray();
+            for (int i = 0; i < find.Length; i++)
+            {
+                Console.WriteLine(find[i]);
+            }
+            if (find.Length == 0)
+                Console.WriteLine("Нет общих элементов");
+        }
+        static void Output(int[] mass)
+        {
+            for (int i = 0; i < mass.Length; i++)
+            {
+                Console.WriteLine(mass[i]);
+            }
+        }
+        static void SortArray(int[] mass)
+        {
+            int temp = 0;
+            for (int i = 0; i < mass.Length; i++)
+            {
+                for (int j = 0; j < mass.Length - 1; j++)
+                {
+                    if (mass[j] > mass[j + 1])
+                    {
+                        temp = mass[j + 1];
+                        mass[j + 1] = mass[j];
+                        mass[j] = temp;
+                    }
+                }
+            }
+            for (int i = 0; i < mass.Length; i++)
+            {
+                Console.WriteLine(mass[i]);
+            }
+        }
+        static void MinMaxAvg(int[] mass)
+        {
+            int max     = 0;
+            int min     = Int32.MaxValue;
+            double avg = 0;
+
+            for (int i = 0; i < mass.Length; i++)
+            {
+                avg += mass[i];
+                if (mass[i] > max)
+                    max = mass[i];
+                if (mass[i] < min)
+                    min = mass[i];
+            }
+
+            avg = avg / mass.Length;
+            Console.WriteLine($"Среденее значение:{avg}");
+            Console.WriteLine($"Максимальное значение:{max}");
+            Console.WriteLine($"Минимальное значение:{min}");
+        }
+        static void Main()
+        {
+            int Choise; // выбор меню
+            int[] mass1 = new int[0];
+            int[] mass2 = new int[0];
+
+            Console.WriteLine("1.Инициализация массива.");
+            Console.WriteLine("2.Сложение поэлементо.");
+            Console.WriteLine("3.Умножение.");
+            Console.WriteLine("4.Поиск общих значений.");
+            Console.WriteLine("5.Печать значений массива.");
+            Console.WriteLine("6.Упорядочивание значений по убыванию.");
+            Console.WriteLine("7.Min,Max,Среднее без стандартных функций.");
+
+            do
+            {
+                Choise = int.Parse(Console.ReadLine());
+                switch (Choise)
+                {
+                    case 1:
+                        Console.WriteLine("Введите размерность первого массива:");
+                        int N = int.Parse(Console.ReadLine());
+                        mass1 = InitilizationRandom(N);
+
+                        Console.WriteLine("Введите размерность второго массива:");
+                        int M = int.Parse(Console.ReadLine());
+                        mass2 = InitilizationRandom(M);
+
+                        Console.WriteLine("Выберите следующее действие:");
+                        break;
+                    case 2:
+                        if (mass1.Length == mass2.Length)
+                        {
+                            SumOfMass(mass1, mass2);
+                        }
+
+                        Console.WriteLine("Выберите следующее действие:");
+                        break;
+                    case 3:
+                        int[] Mult = new int[0];
+
+                        Console.WriteLine("Введите число на которое умножится массив:");
+                        int umn = int.Parse(Console.ReadLine());
+
+                        Console.WriteLine("Первый массив");
+                        MultArray(mass1, umn);
+
+                        Console.WriteLine("Второй массив");
+                        MultArray(mass2, umn);
+
+                        Console.WriteLine("Выберите следующее действие:");
+                        break;
+                    case 4:
+                        Find(mass1, mass2);
+                        Console.WriteLine("Выберите следующее действие:");
+                        break;
+                    case 5:
+                        Console.WriteLine("Первый массив");
+                        Output(mass1);
+
+                        Console.WriteLine("Второй массив");
+                        Output(mass2);
+
+                        Console.WriteLine("Выберите следующее действие:");
+                        break;
+                    case 6:
+                        Console.WriteLine("Первый массив");
+                        SortArray(mass1);
+
+                        Console.WriteLine("Второй массив");
+                        SortArray(mass2);
+
+                        Console.WriteLine("Выберите следующее действие:");
+                        break;
+                    case 7:
+                        Console.WriteLine("Первый массив");
+                        MinMaxAvg(mass1);
+
+                        Console.WriteLine("Второй массив");
+                        MinMaxAvg(mass2);
+
+                        Console.WriteLine("Выберите следующее действие:");
+                        break;
+                }
+            }
+            while (Choise != 0);
+        }
+    }
+}
